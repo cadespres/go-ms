@@ -17,6 +17,11 @@ type Product struct {
 	DeletedOn   string `json:"-"`
 }
 
+func (p *Product) FromJSON(r io.Reader) error {
+	d := json.NewDecoder(r)
+	return d.Decode(p)
+}
+
 type Products []*Product
 
 func (p *Products) ToJSON(w io.Writer) error {
@@ -26,6 +31,16 @@ func (p *Products) ToJSON(w io.Writer) error {
 
 func GetProducts() Products {
 	return productList
+}
+
+func AddProduct(p *Product) {
+	p.ID = getNextId()
+	productList = append(productList, p)
+}
+
+func getNextId() int {
+	lp := productList[len(productList)-1]
+	return lp.ID + 1
 }
 
 var productList = []*Product{
