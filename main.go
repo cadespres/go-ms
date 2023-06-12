@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/cadespres/go-ms/handlers"
+	"github.com/cadespres/go-product-api/handlers"
 	"log"
 	"net/http"
 	"os"
